@@ -1,0 +1,145 @@
+/*样式重置*/
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+body{
+    background-color: #f7f7f7;
+}
+a {
+    text-decoration: none;
+}
+
+/*清除浮动*/
+.clearF {
+    overflow: auto;
+    zoom: 1;
+}
+
+.fL {
+    float: left;
+}
+
+.fR {
+    float: right;
+}
+
+/*无延迟菜单样式*/
+.banner {
+    position: relative;
+    background-color: #f7f7f7;
+}
+
+.menu {
+    width: 200px;
+    background-color: rgba(238, 238, 238, 0.95);
+}
+
+.menu-category, .menu-item {
+    text-indent: 20px;
+}
+
+.menu-category {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #f7f7f7;
+    background-color: #ff0036;
+}
+
+.menu-item {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.menu-item:hover {
+    background-color: #fff;
+}
+
+.menu-item a {
+    color: #000;
+}
+
+.menu .iconfont {
+    padding-right: 10px;
+}
+
+/*悬浮层*/
+.submenu {
+    position: absolute;
+    left: 200px;
+    top: 40px;
+    height: 480px;
+    background-color: #fff;
+    display: none;
+    overflow: hidden;
+}
+
+.menu-item:hover .submenu {
+    display: block;
+}
+
+.submenu-detail {
+    float: left;
+    height: 480px;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 19px 0;
+    overflow: hidden;
+}
+
+.submenu-detail dl{
+    padding: 2px 0;
+}
+/* 悬浮层菜单布局*/
+.submenu-detail dt {
+    position: relative;
+    width: 100px;
+    height: 22px;
+    color: #333;
+}
+
+.submenu-detail .title-text {
+    text-indent: 0;
+    display: inline-block;
+    width: 60px;
+    overflow: hidden;
+    text-align: justify;
+    font-weight: bold;
+}
+
+.submenu-detail .iconfont {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -5px;
+}
+
+.submenu-detail dd {
+    margin-left: 20px;
+    box-sizing: border-box;
+    text-indent: 0;
+    width: 493px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.submenu-detail dd a {
+    margin-right: 13px;
+    color: #666;
+}
+
+.submenu-logo {
+    float: left;
+    padding: 10px;
+    width: 189px;
+    height: 480px;
+    background-color: #fff;
+}
+
+/* 悬浮层logo区域*/
+.submenu-logo a{
+    display: block;
+}

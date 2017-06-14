@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流实现图片加载</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div id="main">
+        <div class="box">
+            <div class="pic">
+                <img src="images/8.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/9.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/10.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/11.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/12.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/4.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/5.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/7.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/8.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/9.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/10.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/11.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/12.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/4.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/5.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/7.jpg" alt="imgs">
+            </div>
+        </div>
+         <div class="box">
+            <div class="pic">
+                <img src="images/8.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/9.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/10.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/11.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/12.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/4.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/5.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/7.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/8.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/9.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/10.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/11.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/12.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/0.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/1.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/2.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/3.jpeg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/4.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/5.jpg" alt="imgs">
+            </div>
+        </div>
+        <div class="box">
+            <div class="pic">
+                <img src="images/7.jpg" alt="imgs">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

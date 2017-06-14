@@ -1,0 +1,44 @@
+*{
+	margin: 0;
+}
+body{
+	background-color: #eee;
+	
+}
+.wrapper{
+	max-width: 960px;
+	min-height: 100vh;
+	margin:0 auto;
+	background-color: #fff;
+}
+header{
+	height: 3em;
+	line-height: 3em;
+	background-color: #aaa;
+}
+nav a{
+	text-decoration: none;
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	background-color: #ddd;
+	color: #2400ff;
+}
+nav a:hover{
+	background-color: #fff;
+	color: #2480a1;
+}
+section{
+	display: none;
+	padding: 20px;
+}
+.hide{
+	display: none;
+}
+.show{
+	display: block;
+}
+.on{
+	background-color: #fff;
+	color: #2480a1;
+}

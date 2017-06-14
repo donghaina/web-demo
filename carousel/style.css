@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body {
+    padding: 20px;
+}
+
+#container {
+    position: relative;
+    overflow: hidden;
+    width: 600px;
+    height: 375px;
+}
+
+#list {
+    position: absolute;
+    z-index: 1;
+    width: 4200px;
+    height: 375px;
+}
+
+#list img {
+    float: left;
+    width: 600px;
+}
+
+#buttons {
+    position: absolute;
+    z-index: 2;
+    bottom: 10px;
+    left: 250px;
+    width: 100px;
+    height: 20px;
+}
+
+#buttons span {
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #333;
+}
+
+#buttons .on {
+    background: orange;
+}
+
+.arrow {
+    font: 30px/50px '宋体';
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    margin-top: -25px;
+    display: none;
+    width: 30px;
+    height: 50px;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    background-color: RGBA(0, 0, 0, .3);
+}
+
+.arrow:hover {
+    background-color: RGBA(0, 0, 0, .7);
+}
+
+#container:hover .arrow {
+    display: block;
+}
+
+#prev {
+    left: 0;
+}
+
+#next {
+    right: 0;
+}
