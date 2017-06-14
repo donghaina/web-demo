@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    perspective: 800px;/*设置视角*/
+}
+#wrap{
+    width: 160px;
+    height: 255px;
+    position: relative;
+    transform-style: preserve-3d;/*设置3D环境*/
+    /*animation: spin 30s linear infinite;*/
+}
+#wrap img{
+    width:160px;
+    height: 255px;
+    position: absolute;
+    top:0;
+    left: 0;
+    border-radius: 10px;
+    transform: rotateY(0deg) rotateX(0deg);
+    animation:  spin 10s linear;
+}
+
+@keyframes spin{
+    from{
+        transform: rotateY(0deg)
+    }
+    to{
+         transform: rotateY(360deg)
+    }
+}
+
