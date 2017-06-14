@@ -1,0 +1,43 @@
+body{
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: #999999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.carousel-box{
+	width: 60vw;
+	height: 80vh;
+	background-color: #888888;
+}
+img{
+	width: 60vw;
+	height: 72vh;
+	display: none;
+}
+
+.display{
+	display: block;
+}
+.active{
+	background-color: #ffff00;
+}
+span{
+	display: inline-block;
+	line-height: 2em;
+	width: 2em;
+	height: 2em;
+	margin: 3px;
+	float: left;
+	background-color: #00FF00;
+	text-align: center;
+	border-radius: 1em;
+	cursor: pointer;
+}
+#index-box{
+	float: right;
+	padding: 10px 20px;
+}
