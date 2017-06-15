@@ -1,0 +1,173 @@
+/*全局样式*/
+body {
+    background-color: #336699;
+    font-family: Verdana, Helvetica, 'Microsoft Yahei', 'PingFang SC', serif;
+    font-size: 16px;
+    color: #333;
+}
+
+/*清除浮动*/
+.clearF {
+    overflow: auto;
+    zoom: 1;
+}
+
+/*左浮动*/
+.fL {
+    float: left;
+}
+
+/*右浮动*/
+.fR {
+    float: right;
+}
+
+/*消除input元素的边框和outline*/
+input, button {
+    border: none;
+    outline: none;
+}
+
+input, button, .task-item {
+    border-radius: 3px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    -webkit-transition: background-color .4s;
+    -moz-transition: background-color .4s;
+    -ms-transition: background-color .4s;
+    -o-transition: background-color .4s;
+    transition: background-color .4s;
+}
+
+.btn {
+    background-color: #46b1e4;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2a97cc;
+}
+
+/*App 名字*/
+.app-title {
+    color: #ffffff;
+    text-align: center;
+}
+
+/*容器*/
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* 添加任务*/
+.add-task {
+    margin-bottom: 10px;
+}
+
+/*任务输入框*/
+.input-task {
+    width: 84%;
+}
+
+.input-task:focus {
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    -o-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+}
+
+/*任务添加按钮*/
+.btn-add {
+    width: 13%;
+}
+
+/*列表项*/
+.task-item {
+    margin: 5px 0;
+    overflow: hidden;
+}
+
+.task-item:hover, .input-task:hover {
+    background-color: #eeeeee;
+}
+
+.task-detail, .add-task, .task-item {
+    box-sizing: border-box;
+}
+
+/*勾选框*/
+.check-box {
+    margin: 0 10px 0 4px;
+}
+
+/*删除与详情按钮*/
+.btn-delete, .btn-detail {
+    border-radius: 3px;
+    padding: 5px 20px;
+}
+
+.btn-delete {
+    background-color: #f44336;
+    margin-right:10px;
+}
+
+.btn-delete:hover {
+    background-color: #ff0000;
+}
+
+/*遮罩层*/
+.mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 3;
+    display: none;
+}
+
+/*关闭遮罩层的按钮*/
+.btn-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(http://orcudrwor.bkt.clouddn.com/close_def.png) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.btn-close:hover {
+    background: url(http://orcudrwor.bkt.clouddn.com/close_hov.png);
+}
+
+/*任务详情*/
+.task-detail {
+    position: relative;
+    padding: 20px;
+    width: 600px;
+    margin: 100px auto;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+/*任务标题*/
+.task-title {
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #ccc;
+    font-weight: 700;
+}
+
+/*任务描述*/
+.task-desc {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    margin: 10px 0;
+}

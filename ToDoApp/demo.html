@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Title</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<form class="add-task clearF">
+			<input name="new-task" type="text" class="input-task fL" placeholder="e.g. 下午去超市买菜">
+			<button class="btn btn-add fR" type="submit">添加</button>
+		</form>
+	</head>
+	<body>
+		<script>
+			$(function () {
+			    var new_task = {};
+			    var $form_add_task = $('.add-task');
+                $form_add_task.on('submit', function (e) {
+                    e.preventDefault();
+                    // 获取新Task的值
+                    new_task.content = $(this).find('.input-task').val();
+                    console.log(new_task);
+                });
+            });
+		</script>
+	</body>
+</html>
