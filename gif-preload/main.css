@@ -1,0 +1,58 @@
+body,ul,li,p{
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    list-style-type: none;
+}
+
+body{
+    background-color: lightcyan;
+}
+
+a{
+    text-decoration: none;
+}
+#container{
+    width: 530px;
+    margin: 100px auto;
+}
+
+#face-btn{
+    color: #333;
+    text-indent: 40px;
+    line-height: 30px;
+    display: block;
+    height: 30px;
+    background: url(img/qq-icon.png) no-repeat;
+    background-size: 30px 30px;
+}
+
+.panel{
+    width: 530px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    display: none;
+}
+
+.panel img{
+    width: 100px;
+    height: 100px;
+}
+
+.loading{
+    text-align: center;
+}
+
+.list li{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.list li:hover{
+    border: 1px solid #369;
+}
