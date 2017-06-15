@@ -21,7 +21,7 @@ $(function () {
 
     $.each(imgs,function (i,src) {
         var imgObj = new Image();
-        $(imgObj).on('load',function () {
+        $(imgObj).on('load error',function () {
             $progress.html(Math.round((count+1)/len *100)+'%');
             if(count >= len-1){
                 $('.loading').hide();
