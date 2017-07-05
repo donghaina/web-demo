@@ -1,0 +1,112 @@
+/*CSS reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style-type: none;
+}
+
+/*body样式，垂直居中设置*/
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #369;
+    perspective: 800px; /*设置视角*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*3d相册 容器*/
+#wrap {
+    width: 80px;
+    height: 128px;
+    position: relative;
+    transform-style: preserve-3d; /*设置3D环境*/
+    /*animation: spin 30s linear infinite;*/
+}
+
+/*3d相册 图片样式*/
+#wrap img {
+    width: 80px;
+    height: 128px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    transform: rotateY(0deg) rotateX(0deg);
+    animation: spin 10s linear;
+}
+
+/*旋转动画*/
+@keyframes spin {
+    from {
+        transform: rotateY(0deg)
+    }
+    to {
+        transform: rotateY(360deg)
+    }
+}
+
+/*导航菜单*/
+.nav {
+    width: 100px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+
+.nav-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    line-height: 60px;
+}
+
+.nav-item li, .nav-icon {
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+}
+
+.nav-item {
+    display: none;
+    transition: 1s display;
+}
+
+.nav-item li {
+    height: 30px;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+
+.nav-item li:hover, .nav-icon:hover {
+    background-color: #ffffff;
+    color: #333333;
+    transition: .5s;
+}
+
+/*遮罩层*/
+
+.mask{
+    position: absolute;
+    left: 0;
+    top:0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.8);
+    display: none;
+}
+.mask img{
+    display: block;
+    width: 320px;
+    height: 510px;
+    position: absolute;
+    top:50%;
+    margin-top: -255px;
+    left: 50%;
+    margin-left: -160px;
+}
