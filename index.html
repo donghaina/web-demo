@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .test {
+        width: 100vw;
+        height: 50px;
+        border: 1px solid #000;
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .test ul {
+        width: 700px;
+        position: absolute;
+        left: 0;
+        background-color: #ffd800;
+    }
+    
+    .test li {
+        width: 25vw;
+        text-align: center;
+        line-height: 50px;
+        list-style-type: none;
+        float: left;
+    }
+    </style>
+    <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+</head>
+
+<body>
+    <div id="test" class="test">
+        <ul id="list">
+            <li><a href="#">导航一</a></li>
+            <li><a href="#">导航二</a></li>
+            <li><a href="#">导航三</a></li>
+            <li><a href="#">导航四</a></li>
+            <li><a href="#">导航五</a></li>
+            <li><a href="#">导航六</a></li>
+            <li><a href="#">导航七</a></li>
+        </ul>
+        <script>
+        var list = document.getElementById("list");
+        var hammertime = new Hammer(document.getElementById("list"));
+        //添加事件
+        console.log(list.offsetLeft)
+        // if (list.offsetLeft >= -300 && list.offsetLeft < 0) {
+            hammertime.on("pan", function(e) {
+                list.style.left = list.offsetLeft + e.deltaX / 50 + "px";
+                if(list.offsetLeft < -300){
+                	list.style.left = -300 + 'px';
+                }
+                if(list.offsetLeft > 0){
+                	list.style.left = 0 + 'px';
+                }
+            });
+        // }
+        </script>
+    </div>
+</body>
+
+</html>
