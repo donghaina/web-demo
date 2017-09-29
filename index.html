@@ -56,7 +56,7 @@
         console.log(list.offsetLeft)
         // if (list.offsetLeft >= -300 && list.offsetLeft < 0) {
             hammertime.on("pan", function(e) {
-                list.style.left = list.offsetLeft + e.deltaX / 50 + "px";
+                list.style.left = list.offsetLeft + e.deltaX + "px";
                 if(list.offsetLeft < -300){
                 	list.style.left = -300 + 'px';
                 }
