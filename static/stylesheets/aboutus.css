@@ -1,0 +1,13 @@
+.page-about .our-info {
+    margin: .8rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: .4rem
+}
+
+.page-about .our-info p {
+    text-indent: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    font-size: .76rem
+}
