@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Time line</title>
+
+
+
+  <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+  <div class="timeline-container" id="timeline">
+    <div class="line">
+      <div class="timeline"  v-for="(item,index) in expressList" :class="{recent:index===0,earliest:index===(expressList.length-1)}">
+        <p class="detail">{{item.content}}</p>
+        <p class="time">{{item.time}}</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@2.5.2/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#timeline',
+      data: {
+        expressList: [{
+            time: '2007年2月',
+            content: 'ワーホリビザで渡加。アクセサリーショップ等でバイト。カナダ生活を満喫。'
+          },
+          {
+            time: '2008年3月',
+            content: '有給インターンシップ付きの一年プログラムを受講。HTML、CSS、JavaScript、PHP等のコーディングやWebデザインの基礎を学ぶ。'
+          },
+          {
+            time: '2009年2月',
+            content: '私以外全員カナダ人という環境で英語やWebの技術を学びながら必死に働'
+          }
+        ]
+      }
+    })
+  </script>
+
+</body>
+
+</html>
