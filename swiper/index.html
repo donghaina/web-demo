@@ -1,83 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Swiper demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<head>
+		<meta charset="utf-8">
+		<title>Swiper demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
-  <!-- Link Swiper's CSS -->
-  <link rel="stylesheet" href="./dist/css/swiper.min.css">
+		<!-- Link Swiper's CSS -->
+		<link rel="stylesheet" href="./dist/css/swiper.min.css">
 
-  <!-- Demo styles -->
-  <style>
-    html, body {
-      position: relative;
-      height: 100%;
-    }
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #eee;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color:#000;
-      margin: 0;
-      padding: 0;
-    }
-    .swiper-container {
-      width: 375px;
-      height: 200px;
-      background-color: #ffccff;
-    }
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
+		<!-- Demo styles -->
+		<style>
+			html, body {
+				position: relative;
+				height: 100%;
+			}
 
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
-  </style>
-</head>
-<body>
-  <!-- Swiper -->
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">Slide 1</div>
-      <div class="swiper-slide">Slide 2</div>
-      <div class="swiper-slide">Slide 3</div>
-    </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-  </div>
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background: #eee;
+				font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+				font-size: 14px;
+				color: #000;
+				margin: 0;
+				padding: 0;
+			}
 
-  <!-- Swiper JS -->
-  <script src="./dist/js/swiper.min.js"></script>
+			.swiper-container {
+				width: 375px;
+				height: 300px;
+				background-color: #ffccff;
+			}
+			.swiper-slide {
+				position: relative;
+				height: 200px;
+				text-align: center;
+				font-size: 18px;
+				background: #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5px;
+			}
 
-  <!-- Initialize Swiper -->
-  <script>
-    var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 1.5,
-      initialSlide:1,
-      spaceBetween: 30,
-      centeredSlides: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
-  </script>
-</body>
+			.swiper-slide .mask {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 40px;
+				line-height: 40px;
+				color: #ffffff;
+				background-color: rgba(0, 0, 0, .7);
+				border-radius: 0 0 5px 5px;
+				display: none;
+			}
+
+			.swiper-slide-active {
+				height: 250px;
+			}
+
+			.swiper-slide-active .mask {
+				display: block;
+			}
+
+			.swiper-wrapper{
+				width: inherit;
+				display: flex;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Swiper -->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">Slide 1
+					<div class="mask">Hello world</div>
+				</div>
+				<div class="swiper-slide">Slide 2
+					<div class="mask">Hello world</div>
+				</div>
+				<div class="swiper-slide">Slide 3
+					<div class="mask">Hello world</div>
+				</div>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<!-- Swiper JS -->
+		<script src="./dist/js/swiper.min.js"></script>
+
+		<!-- Initialize Swiper -->
+		<script>
+          var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1.2,
+            initialSlide: 1,
+            spaceBetween: 10,
+            centeredSlides: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true
+            }
+          });
+		</script>
+	</body>
 </html>
