@@ -16,9 +16,6 @@
 			}
 
 			body {
-				display: flex;
-				justify-content: center;
-				align-items: center;
 				background: #eee;
 				font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 				font-size: 14px;
@@ -26,12 +23,15 @@
 				margin: 0;
 				padding: 0;
 			}
-
+			h1 {
+				text-align: center;
+			}
 			.swiper-container {
 				width: 375px;
 				height: 300px;
 				background-color: #ffccff;
 			}
+
 			.swiper-slide {
 				position: relative;
 				height: 200px;
@@ -65,7 +65,7 @@
 				display: block;
 			}
 
-			.swiper-wrapper{
+			.swiper-wrapper {
 				width: inherit;
 				display: flex;
 				align-items: center;
@@ -74,6 +74,7 @@
 	</head>
 	<body>
 		<!-- Swiper -->
+		<h1><span id="current_index"></span>/5</h1>
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">Slide 1
@@ -83,6 +84,12 @@
 					<div class="mask">Hello world</div>
 				</div>
 				<div class="swiper-slide">Slide 3
+					<div class="mask">Hello world</div>
+				</div>
+				<div class="swiper-slide">Slide 4
+					<div class="mask">Hello world</div>
+				</div>
+				<div class="swiper-slide">Slide 5
 					<div class="mask">Hello world</div>
 				</div>
 			</div>
@@ -95,11 +102,25 @@
 
 		<!-- Initialize Swiper -->
 		<script>
+			var current_index = document.getElementById('current_index');
           var swiper = new Swiper('.swiper-container', {
             slidesPerView: 1.2,
-            initialSlide: 1,
+            initialSlide: 3,
             spaceBetween: 10,
-            centeredSlides: true
+            centeredSlides: true,
+            autoplay: {},
+            loop: true,
+            on:{
+              transitionStart: function(){
+                if(this.activeIndex === 5){
+                  current_index.innerText = 5;
+                } else if (this.activeIndex === 6){
+                  current_index.innerText = 1;
+                } else {
+                  current_index.innerText = this.activeIndex;
+                }
+              }
+            }
           });
 		</script>
 	</body>
