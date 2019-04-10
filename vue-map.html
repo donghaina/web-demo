@@ -5,7 +5,7 @@
 		<base href="//webapi.amap.com/ui/1.0/ui/misc/PoiPicker/examples/"/>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-		<title>输入框选择POI点</title>
+		<title>Vue 高德地图 DEMO</title>
 		<style>
 			html,
 			body,
@@ -64,7 +64,8 @@
             methods: {
               initMap() {
                 var map = new AMap.Map('map_container', {
-                  zoom: 15
+                  zoom: 20,
+                  resizeEnable: true
                 });
                 map.plugin('AMap.Geolocation', function () {
                   geolocation = new AMap.Geolocation({
@@ -88,7 +89,7 @@
                   AMap.event.addListener(geolocation, 'error', function (err) {
                     console.log(err);
                   }); //返回定位出错信息
-                  AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
+                  AMapUI.loadUI(['misc/PoiPicker'], function (PoiPicker) {
                     var poiPicker = new PoiPicker({
                       //city:'北京',
                       input: 'pickerInput'
@@ -96,14 +97,16 @@
                     //初始化poiPicker
                     poiPickerReady(poiPicker);
                   });
+
                   function poiPickerReady(poiPicker) {
                     window.poiPicker = poiPicker;
                     var marker = new AMap.Marker();
                     var infoWindow = new AMap.InfoWindow({
-                      offset: new AMap.Pixel(0, -20)
+                      offset: new AMap.Pixel(0, -15),
+                      autoMove: true
                     });
                     //选取了某个POI
-                    poiPicker.on('poiPicked', function(poiResult) {
+                    poiPicker.on('poiPicked', function (poiResult) {
                       var source = poiResult.source,
                         poi = poiResult.item,
                         info = {
@@ -121,7 +124,7 @@
                       infoWindow.open(map, marker.getPosition());
                       //map.setCenter(marker.getPosition());
                     });
-                    poiPicker.onCityReady(function() {
+                    poiPicker.onCityReady(function () {
                       poiPicker.suggest('');
                     });
                   }
