@@ -1,0 +1,150 @@
+
+<!-- saved from url=(0052)http://www.ourd3js.com/demo/J-2.0/relationforce.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+          
+        <title>Force</title>  
+  <style>
+
+.nodetext {
+	font-size: 12px ;
+	font-family: SimSun;
+	fill:#000000;
+}
+
+.linetext {
+	font-size: 12px ;
+	font-family: SimSun;
+	fill:#0000FF;
+	fill-opacity:0.0;
+}
+
+</style><style type="text/css">
+:root #content > #right > .dose > .dosesingle,
+:root #content > #center > .dose > .dosesingle
+{ display: none !important; }</style></head> 
+
+
+    <body>  
+		<script src="./Force_files/d3.v3.min.js" charset="utf-8"></script>  
+        <script>		   
+		
+		var width = 600;
+		var height = 600;
+		var img_w = 77;
+		var img_h = 90;
+		
+		var svg = d3.select("body").append("svg")
+								.attr("width",width)
+								.attr("height",height);
+		
+		
+		
+		d3.json("relation.json",function(error,root){
+			
+			if( error ){
+				return console.log(error);
+			}
+			console.log(root);
+			
+			var force = d3.layout.force()
+							.nodes(root.nodes)
+							.links(root.edges)
+							.size([width,height])
+							.linkDistance(200)
+							.charge(-1500)
+							.start();
+							
+			var edges_line = svg.selectAll("line")
+								.data(root.edges)
+								.enter()
+								.append("line")
+								.style("stroke","#ccc")
+								.style("stroke-width",1);
+								
+			var edges_text = svg.selectAll(".linetext")
+								.data(root.edges)
+								.enter()
+								.append("text")
+								.attr("class","linetext")
+								.text(function(d){
+									return d.relation;
+								});
+			
+								
+			var nodes_img = svg.selectAll("image")
+								.data(root.nodes)
+								.enter()
+								.append("image")
+								.attr("width",img_w)
+								.attr("height",img_h)
+								.attr("xlink:href",function(d){
+									return d.image;
+								})
+								.on("mouseover",function(d,i){
+									//显示连接线上的文字
+									edges_text.style("fill-opacity",function(edge){
+										if( edge.source === d || edge.target === d ){
+											return 1.0;
+										}
+									});
+								})
+								.on("mouseout",function(d,i){
+									//隐去连接线上的文字
+									edges_text.style("fill-opacity",function(edge){
+										if( edge.source === d || edge.target === d ){
+											return 0.0;
+										}
+									});
+								})
+								.call(force.drag);
+			
+			var text_dx = -20;
+			var text_dy = 20;
+			
+			var nodes_text = svg.selectAll(".nodetext")
+								.data(root.nodes)
+								.enter()
+								.append("text")
+								.attr("class","nodetext")
+								.attr("dx",text_dx)
+								.attr("dy",text_dy)
+								.text(function(d){
+									return d.name;
+								});
+			
+								
+			force.on("tick", function(){
+				
+				//限制结点的边界
+				root.nodes.forEach(function(d,i){
+					d.x = d.x - img_w/2 < 0     ? img_w/2 : d.x ;
+					d.x = d.x + img_w/2 > width ? width - img_w/2 : d.x ;
+					d.y = d.y - img_h/2 < 0      ? img_h/2 : d.y ;
+					d.y = d.y + img_h/2 + text_dy > height ? height - img_h/2 - text_dy : d.y ;
+				});
+			
+				//更新连接线的位置
+				 edges_line.attr("x1",function(d){ return d.source.x; });
+				 edges_line.attr("y1",function(d){ return d.source.y; });
+				 edges_line.attr("x2",function(d){ return d.target.x; });
+				 edges_line.attr("y2",function(d){ return d.target.y; });
+				 
+				 //更新连接线上文字的位置
+				 edges_text.attr("x",function(d){ return (d.source.x + d.target.x) / 2 ; });
+				 edges_text.attr("y",function(d){ return (d.source.y + d.target.y) / 2 ; });
+				 
+				 
+				 //更新结点图片和文字
+				 nodes_img.attr("x",function(d){ return d.x - img_w/2; });
+				 nodes_img.attr("y",function(d){ return d.y - img_h/2; });
+				 
+				 nodes_text.attr("x",function(d){ return d.x });
+				 nodes_text.attr("y",function(d){ return d.y + img_w/2; });
+			});
+		});
+		  
+        </script><svg width="600" height="600"><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="308.2900642219684" y1="367.88056853293637" x2="447.6936497458862" y2="168.40750370678484"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="308.2900642219684" y1="367.88056853293637" x2="288.9267945752686" y2="185.30984280254168"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="308.2900642219684" y1="367.88056853293637" x2="491.7403634105576" y2="347.1191149774697"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="447.6936497458862" y1="168.40750370678484" x2="288.9267945752686" y2="185.30984280254168"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="447.6936497458862" y1="168.40750370678484" x2="491.7403634105576" y2="347.1191149774697"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="288.9267945752686" y1="185.30984280254168" x2="491.7403634105576" y2="347.1191149774697"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="308.2900642219684" y1="367.88056853293637" x2="115.68832516734932" y2="286.94595259099225"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="308.2900642219684" y1="367.88056853293637" x2="101.22726346602548" y2="518.697700855491"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="115.68832516734932" y1="286.94595259099225" x2="101.22726346602548" y2="518.697700855491"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="308.2900642219684" y1="367.88056853293637" x2="235.70703158550623" y2="535"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="115.68832516734932" y1="286.94595259099225" x2="235.70703158550623" y2="535"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="101.22726346602548" y1="518.697700855491" x2="235.70703158550623" y2="535"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="115.68832516734932" y1="286.94595259099225" x2="38.5" y2="404.12648033380003"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="101.22726346602548" y1="518.697700855491" x2="38.5" y2="404.12648033380003"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="235.70703158550623" y1="535" x2="38.5" y2="404.12648033380003"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="115.68832516734932" y1="286.94595259099225" x2="245.27680260436279" y2="374.8724900480031"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="101.22726346602548" y1="518.697700855491" x2="245.27680260436279" y2="374.8724900480031"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="235.70703158550623" y1="535" x2="245.27680260436279" y2="374.8724900480031"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="38.5" y1="404.12648033380003" x2="245.27680260436279" y2="374.8724900480031"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="245.27680260436279" y1="374.8724900480031" x2="407.99603132434174" y2="530.6968255731913"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="491.7403634105576" y1="347.1191149774697" x2="407.99603132434174" y2="530.6968255731913"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="288.9267945752686" y1="185.30984280254168" x2="505.87745873585584" y2="223.26932832117978"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="505.87745873585584" y1="223.26932832117978" x2="561.5" y2="45"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="505.87745873585584" y1="223.26932832117978" x2="361.3349972687357" y2="45"></line><line style="stroke: rgb(204, 204, 204); stroke-width: 1;" x1="561.5" y1="45" x2="361.3349972687357" y2="45"></line><text class="linetext" x="377.9918569839273" y="268.14403611986063">挚友</text><text class="linetext" x="298.6084293986185" y="276.59520566773904">挚友</text><text class="linetext" x="400.015213816263" y="357.499841755203" style="fill-opacity: 0;">挚友</text><text class="linetext" x="368.3102221605774" y="176.85867325466324">挚友</text><text class="linetext" x="469.7170065782219" y="257.7633093421273" style="fill-opacity: 0;">挚友</text><text class="linetext" x="390.3335789929131" y="266.2144788900057" style="fill-opacity: 0;">挚友</text><text class="linetext" x="211.98919469465886" y="327.4132605619643">父子</text><text class="linetext" x="204.75866384399694" y="443.28913469421366">母子</text><text class="linetext" x="108.4577943166874" y="402.82182672324166">夫妻</text><text class="linetext" x="271.9985479037373" y="451.4402842664682">义兄弟</text><text class="linetext" x="175.69767837642777" y="410.9729762954961">同门</text><text class="linetext" x="168.46714752576585" y="526.8488504277454">同门</text><text class="linetext" x="77.09416258367466" y="345.53621646239617">同门</text><text class="linetext" x="69.86363173301274" y="461.4120905946455">同门</text><text class="linetext" x="137.10351579275311" y="469.5632401669">同门</text><text class="linetext" x="180.48256388585605" y="330.90922131949765">师徒</text><text class="linetext" x="173.25203303519413" y="446.78509545174705">师徒</text><text class="linetext" x="240.4919170949345" y="454.93624502400155">师徒</text><text class="linetext" x="141.8884013021814" y="389.49948519090157">师徒</text><text class="linetext" x="326.6364169643523" y="452.7846578105972">同门</text><text class="linetext" x="449.8681973674497" y="438.9079702753305" style="fill-opacity: 0;">师徒</text><text class="linetext" x="397.40212665556226" y="204.28958556186075">母子</text><text class="linetext" x="533.6887293679279" y="134.1346641605899">主臣</text><text class="linetext" x="433.6062280022958" y="134.1346641605899">主臣</text><text class="linetext" x="461.41749863436786" y="45">同僚</text><image width="77" height="90" href="tianhe.png" x="269.7900642219684" y="322.88056853293637"></image><image width="77" height="90" href="lingsha.png" x="409.1936497458862" y="123.40750370678484"></image><image width="77" height="90" href="mengli.png" x="250.42679457526862" y="140.30984280254168"></image><image width="77" height="90" href="ziying.png" x="453.2403634105576" y="302.1191149774697"></image><image width="77" height="90" href="tianqing.png" x="77.18832516734932" y="241.94595259099225"></image><image width="77" height="90" href="suyu.png" x="62.72726346602548" y="473.697700855491"></image><image width="77" height="90" href="xuanxiao.png" x="197.20703158550623" y="490"></image><image width="77" height="90" href="suyao.png" x="0" y="359.12648033380003"></image><image width="77" height="90" href="taiqing.png" x="206.77680260436279" y="329.8724900480031"></image><image width="77" height="90" href="zonglian.png" x="369.49603132434174" y="485.6968255731913"></image><image width="77" height="90" href="chanyou.png" x="467.37745873585584" y="178.26932832117978"></image><image width="77" height="90" href="xizhong.png" x="523" y="0"></image><image width="77" height="90" href="guixie.png" x="322.8349972687357" y="0"></image><text class="nodetext" dx="-20" dy="20" x="308.2900642219684" y="406.38056853293637">云天河</text><text class="nodetext" dx="-20" dy="20" x="447.6936497458862" y="206.90750370678484">韩菱纱</text><text class="nodetext" dx="-20" dy="20" x="288.9267945752686" y="223.80984280254168">柳梦璃</text><text class="nodetext" dx="-20" dy="20" x="491.7403634105576" y="385.6191149774697">慕容紫英</text><text class="nodetext" dx="-20" dy="20" x="115.68832516734932" y="325.44595259099225">云天青</text><text class="nodetext" dx="-20" dy="20" x="101.22726346602548" y="557.197700855491">夙玉</text><text class="nodetext" dx="-20" dy="20" x="235.70703158550623" y="573.5">玄霄</text><text class="nodetext" dx="-20" dy="20" x="38.5" y="442.62648033380003">夙瑶</text><text class="nodetext" dx="-20" dy="20" x="245.27680260436279" y="413.3724900480031">太清</text><text class="nodetext" dx="-20" dy="20" x="407.99603132434174" y="569.1968255731913">宗炼</text><text class="nodetext" dx="-20" dy="20" x="505.87745873585584" y="261.7693283211798">婵幽</text><text class="nodetext" dx="-20" dy="20" x="561.5" y="83.5">奚仲</text><text class="nodetext" dx="-20" dy="20" x="361.3349972687357" y="83.5">归邪</text></svg>  
+		
+      
+  
+<audio controls="controls" style="display: none;"></audio></body><style type="text/css">#yddContainer{display:block;font-family:Microsoft YaHei;position:relative;width:100%;height:100%;top:-4px;left:-4px;font-size:12px;border:1px solid}#yddTop{display:block;height:22px}#yddTopBorderlr{display:block;position:static;height:17px;padding:2px 28px;line-height:17px;font-size:12px;color:#5079bb;font-weight:bold;border-style:none solid;border-width:1px}#yddTopBorderlr .ydd-sp{position:absolute;top:2px;height:0;overflow:hidden}.ydd-icon{left:5px;width:17px;padding:0px 0px 0px 0px;padding-top:17px;background-position:-16px -44px}.ydd-close{right:5px;width:16px;padding-top:16px;background-position:left -44px}#yddKeyTitle{float:left;text-decoration:none}#yddMiddle{display:block;margin-bottom:10px}.ydd-tabs{display:block;margin:5px 0;padding:0 5px;height:18px;border-bottom:1px solid}.ydd-tab{display:block;float:left;height:18px;margin:0 5px -1px 0;padding:0 4px;line-height:18px;border:1px solid;border-bottom:none}.ydd-trans-container{display:block;line-height:160%}.ydd-trans-container a{text-decoration:none;}#yddBottom{position:absolute;bottom:0;left:0;width:100%;height:22px;line-height:22px;overflow:hidden;background-position:left -22px}.ydd-padding010{padding:0 10px}#yddWrapper{color:#252525;z-index:10001;background:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ab20.png);}#yddContainer{background:#fff;border-color:#4b7598}#yddTopBorderlr{border-color:#f0f8fc}#yddWrapper .ydd-sp{background-image:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ydd-sprite.png)}#yddWrapper a,#yddWrapper a:hover,#yddWrapper a:visited{color:#50799b}#yddWrapper .ydd-tabs{color:#959595}.ydd-tabs,.ydd-tab{background:#fff;border-color:#d5e7f3}#yddBottom{color:#363636}#yddWrapper{min-width:250px;max-width:400px;}</style></html>

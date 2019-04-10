@@ -1,132 +1,140 @@
 <!doctype html>
 <html lang="zh-CN">
+	<head>
+		<!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PoiPicker/examples/index.html -->
+		<base href="//webapi.amap.com/ui/1.0/ui/misc/PoiPicker/examples/"/>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>输入框选择POI点</title>
+		<style>
+			html,
+			body,
+			#mp_container {
+				width: 100%;
+				height: 100vh;
+				margin: 0px;
+				font-size: 13px;
+			}
 
-<head>
-    <!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PoiPicker/examples/index.html -->
-    <base href="//webapi.amap.com/ui/1.0/ui/misc/PoiPicker/examples/" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-    <title>输入框选择POI点</title>
-    <style>
-    html,
-    body,
-    #container {
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        font-size: 13px;
-    }
-    
-    #pickerBox {
-        position: absolute;
-        z-index: 9999;
-        top: 50px;
-        right: 30px;
-        width: 300px;
-    }
-    
-    #pickerInput {
-        width: 200px;
-        padding: 5px 5px;
-    }
-    
-    #poiInfo {
-        background: #fff;
-    }
-    
-    .amap_lib_placeSearch .poibox.highlight {
-        background-color: #CAE1FF;
-    }
-    
-    .amap_lib_placeSearch .poi-more {
-        display: none!important;
-    }
-    </style>
-</head>
+			#pickerBox {
+				position: absolute;
+				z-index: 9999;
+				top: 50px;
+				right: 30px;
+				width: 300px;
+			}
 
-<body>
-    <div id="container" class="map" tabindex="0"></div>
-    <div id="pickerBox">
-        <input id="pickerInput" placeholder="输入关键字选取地点" />
-        <div id="poiInfo"></div>
-    </div>
-    <script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.13&key=47371b7392f004ea6a29de194a5698a3'></script>
-    <!-- UI组件库 1.0 -->
-    <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
-    <script type="text/javascript">
-    var map = new AMap.Map('container', {
-        zoom: 10
-    });
-    map.plugin('AMap.Geolocation', function() {
-        geolocation = new AMap.Geolocation({
-            enableHighAccuracy: true, //是否使用高精度定位，默认:true
-            timeout: 10000, //超过10秒后停止定位，默认：无穷大
-            maximumAge: 0, //定位结果缓存0毫秒，默认：0
-            convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
-            showButton: true, //显示定位按钮，默认：true
-            buttonPosition: 'LB', //定位按钮停靠位置，默认：'LB'，左下角
-            buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-            showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
-            showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
-            panToLocation: true, //定位成功后将定位到的位置作为地图中心点，默认：true
-            zoomToAccuracy: true //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-        });
-        map.addControl(geolocation);
-        geolocation.getCurrentPosition();
-        AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
-        AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
-    });
-    AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
+			#pickerInput {
+				width: 200px;
+				padding: 5px 5px;
+			}
 
-        var poiPicker = new PoiPicker({
-            //city:'北京',
-            input: 'pickerInput'
-        });
+			#poiInfo {
+				background: #fff;
+			}
 
-        //初始化poiPicker
-        poiPickerReady(poiPicker);
-    });
+			.amap_lib_placeSearch .poibox.highlight {
+				background-color: #CAE1FF;
+			}
 
-    function poiPickerReady(poiPicker) {
+			.amap_lib_placeSearch .poi-more {
+				display: none !important;
+			}
+		</style>
+	</head>
 
-        window.poiPicker = poiPicker;
-
-        var marker = new AMap.Marker();
-
-        var infoWindow = new AMap.InfoWindow({
-            offset: new AMap.Pixel(0, -20)
-        });
-
-        //选取了某个POI
-        poiPicker.on('poiPicked', function(poiResult) {
-
-            var source = poiResult.source,
-                poi = poiResult.item,
-                info = {
-                    source: source,
-                    id: poi.id,
-                    name: poi.name,
-                    location: poi.location.toString(),
-                    address: poi.address
-                };
-
-            marker.setMap(map);
-            infoWindow.setMap(map);
-
-            marker.setPosition(poi.location);
-            infoWindow.setPosition(poi.location);
-
-            infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
-            infoWindow.open(map, marker.getPosition());
-
-            //map.setCenter(marker.getPosition());
-        });
-
-        poiPicker.onCityReady(function() {
-            poiPicker.suggest('');
-        });
-    }
-    </script>
-</body>
+	<body>
+		<div id="app">
+			<div id="mp_container" class="map" tabindex="0"></div>
+			<div id="pickerBox">
+				<input id="pickerInput" placeholder="输入关键字选取地点"/>
+				<div id="poiInfo"></div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script type="text/javascript"
+		        src='//webapi.amap.com/maps?v=1.4.13&key=47371b7392f004ea6a29de194a5698a3'></script>
+		<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+		<script>
+          new Vue({
+            el: '#app',
+            data: {
+              imageURL: 'http://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg'
+            },
+            methods: {
+              initMap() {
+                var map = new AMap.Map('map_container', {
+                  zoom: 15
+                });
+                map.plugin('AMap.Geolocation', function () {
+                  geolocation = new AMap.Geolocation({
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0,
+                    convert: true,
+                    showButton: true,
+                    buttonPosition: 'LB',
+                    buttonOffset: new AMap.Pixel(10, 20),
+                    showMarker: true,
+                    showCircle: true,
+                    panToLocation: true,
+                    zoomToAccuracy: true
+                  });
+                  map.addControl(geolocation);
+                  geolocation.getCurrentPosition();
+                  AMap.event.addListener(geolocation, 'complete', function (data) {
+                    console.log(data);
+                  }); //返回定位信息
+                  AMap.event.addListener(geolocation, 'error', function (err) {
+                    console.log(err);
+                  }); //返回定位出错信息
+                  AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
+                    var poiPicker = new PoiPicker({
+                      //city:'北京',
+                      input: 'pickerInput'
+                    });
+                    //初始化poiPicker
+                    poiPickerReady(poiPicker);
+                  });
+                  function poiPickerReady(poiPicker) {
+                    window.poiPicker = poiPicker;
+                    var marker = new AMap.Marker();
+                    var infoWindow = new AMap.InfoWindow({
+                      offset: new AMap.Pixel(0, -20)
+                    });
+                    //选取了某个POI
+                    poiPicker.on('poiPicked', function(poiResult) {
+                      var source = poiResult.source,
+                        poi = poiResult.item,
+                        info = {
+                          source: source,
+                          id: poi.id,
+                          name: poi.name,
+                          location: poi.location.toString(),
+                          address: poi.address
+                        };
+                      marker.setMap(map);
+                      infoWindow.setMap(map);
+                      marker.setPosition(poi.location);
+                      infoWindow.setPosition(poi.location);
+                      infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
+                      infoWindow.open(map, marker.getPosition());
+                      //map.setCenter(marker.getPosition());
+                    });
+                    poiPicker.onCityReady(function() {
+                      poiPicker.suggest('');
+                    });
+                  }
+                });
+              }
+            },
+            mounted: function () {
+              if (window.AMap && window.AMapUI) {
+                this.initMap()
+              }
+            }
+          })
+		</script>
+	</body>
 
 </html>

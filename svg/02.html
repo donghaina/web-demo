@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Title</title>
+		<style>
+			circle {
+				stroke-width: 5;
+				stroke: #f00;
+				fill: #ff0;
+			}
+
+			circle:hover {
+				stroke: #090;
+				fill: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mySvg">
+			<svg viewBox="0 0 800 600">
+				<circle cx="100" cy="100" r="35" class="circle" id="myCircle"/>
+			</svg>
+		</div>
+		<canvas id="canvas"></canvas>
+		<script>
+          // var myCircle = document.getElementById('myCircle');
+          //
+          // myCircle.addEventListener('click', function(e) {
+          //   console.log('circle clicked - enlarging');
+          //   myCircle.setAttribute('r', 60);
+          // }, false);
+          var svgString = new XMLSerializer()
+            .serializeToString(document.querySelector('svg'));
+          var img = new Image();
+          var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+
+          var DOMURL = self.URL || self.webkitURL || self;
+          var url = DOMURL.createObjectURL(svg);
+
+          img.src = url;
+
+
+          img.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+          };
+		</script>
+	</body>
+</html>
