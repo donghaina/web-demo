@@ -12,8 +12,7 @@
 			#mp_container {
 				width: 100%;
 				height: 100vh;
-				margin: 0px;
-				font-size: 13px;
+				margin: 0;
 			}
 
 			#pickerBox {
@@ -67,7 +66,7 @@
                   zoom: 20
                 });
                 map.plugin('AMap.Geolocation', function () {
-                  geolocation = new AMap.Geolocation({
+                  var geolocation = new AMap.Geolocation({
                     enableHighAccuracy: true,
                     timeout: 10000,
                     maximumAge: 0,
@@ -86,7 +85,6 @@
                   AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
                   AMapUI.loadUI(['misc/PoiPicker'], function (PoiPicker) {
                     var poiPicker = new PoiPicker({
-                      //city:'北京',
                       input: 'pickerInput'
                     });
                     //初始化poiPicker
@@ -116,7 +114,7 @@
                       infoWindow.setPosition(poi.location);
                       infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
                       infoWindow.open(map, marker.getPosition());
-                      //map.setCenter(marker.getPosition());
+                      map.setCenter(marker.getPosition());
                     });
                     poiPicker.onCityReady(function () {
                       poiPicker.suggest('');
