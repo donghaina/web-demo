@@ -64,8 +64,7 @@
             methods: {
               initMap() {
                 var map = new AMap.Map('map_container', {
-                  zoom: 20,
-                  resizeEnable: true
+                  zoom: 20
                 });
                 map.plugin('AMap.Geolocation', function () {
                   geolocation = new AMap.Geolocation({
@@ -98,8 +97,7 @@
                     window.poiPicker = poiPicker;
                     var marker = new AMap.Marker();
                     var infoWindow = new AMap.InfoWindow({
-                      offset: new AMap.Pixel(0, -15),
-                      autoMove: true
+                      offset: new AMap.Pixel(0, -20)
                     });
                     //选取了某个POI
                     poiPicker.on('poiPicked', function (poiResult) {
