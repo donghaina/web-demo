@@ -99,7 +99,7 @@ map.plugin('AMap.Geolocation', function () {
 
         //选取了某个POI
         poiPicker.on('poiPicked', function(poiResult) {
-
+            
             var source = poiResult.source,
                 poi = poiResult.item,
                 info = {
@@ -109,7 +109,7 @@ map.plugin('AMap.Geolocation', function () {
                     location: poi.location.toString(),
                     address: poi.address
                 };
-
+            console.log(poi);
             marker.setMap(map);
             infoWindow.setMap(map);
 
