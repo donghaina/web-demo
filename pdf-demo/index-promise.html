@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>'Hello, world!' example</title>
+		<style>
+
+		</style>
+	</head>
+
+	<body>
+		<div id="imgDiv"></div>
+		<script src="./pdf.js"></script>
+		<script src="./pdf.worker.js"></script>
+		<script id="script">
+          window.onload = function name(params) {
+            var url = './demo.pdf';
+            var imgDiv = document.getElementById('imgDiv');
+            var start = new Date().getTime();
+            PDFJS.getDocument(url).then(function (pdf) {
+              console.log(pdf);
+              if (pdf) {
+                var pageNum = pdf.numPages;
+                console.log(pageNum);
+                for (var i = 1; i <= pageNum; i++) {
+                  var canvas = document.createElement('canvas');
+                  canvas.id = 'pageNum' + i;
+                  imgDiv.appendChild(canvas);
+                  var context = canvas.getContext('2d');
+                  openPage(pdf, i, context);
+                }
+              }
+            })
+
+            function openPage(pdfFile, pageNumber, context) {
+              var scale = 2;
+              pdfFile.getPage(pageNumber).then(function (page) {
+                viewport = page.getViewport(scale); // reference canvas via context
+                var canvas = context.canvas;
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width = "100%";
+                canvas.style.height = "100%";
+                var renderContext = {
+                  canvasContext: context,
+                  viewport: viewport
+                };
+                page.render(renderContext).then(() => {
+                  var end = new Date().getTime();
+                  console.log('渲染完了，耗时:' + (end - start) / 1000 / 60 + 's')
+                });
+              });
+              return;
+            };
+          }
+		</script>
+	</body>
+
+</html>
