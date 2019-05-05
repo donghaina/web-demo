@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- import CSS -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<style>
+			.avatar-uploader {
+				display: inline-block;
+				border: 1px dashed #d9d9d9;
+				border-radius: 6px;
+				cursor: pointer;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.avatar-uploader:hover {
+				border-color: #409EFF;
+			}
+
+			.avatar-uploader-icon {
+				font-size: 28px;
+				color: #8c939d;
+				width: 178px;
+				height: 178px;
+				line-height: 178px;
+				text-align: center;
+			}
+
+			.avatar {
+				width: 178px;
+				height: 178px;
+				display: block;
+			}
+
+			.cut {
+				width: 500px;
+				height: 500px;
+				margin: 0 auto;
+			}
+
+			.cropper-uploader {
+				display: flex;
+				margin-bottom: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<el-form :model="profileForm" ref="profileForm" label-width="80px" style="width:600px">
+				<el-form-item label="头像" prop="avatar">
+					<div class="avatar-uploader" @click="dialogVisible = true">
+						<img :src="profileForm.avatar" v-if="profileForm.avatar" class="avatar">
+						<i class="el-icon-plus avatar-uploader-icon" v-else></i>
+					</div>
+				</el-form-item>
+			</el-form>
+			<el-dialog
+					title="请上传用户头像"
+					:visible.sync="dialogVisible"
+					width="50%">
+				<el-upload
+						class="cropper-uploader"
+						ref="upload"
+						action=""
+						:show-file-list="false"
+						:http-request="handleUpload">
+					<el-button slot="trigger" size="small" type="primary" style="margin-right: 10px">选取图片</el-button>
+					<div slot="tip" class="el-upload__tip">只能上传jpg/png/jpeg文件，且不超过500kb</div>
+				</el-upload>
+				<div class="cut">
+					<vue-cropper ref="cropper"
+					             :img="option.img"
+					             :output-size="option.size"
+					             :output-type="option.outputType"
+					             :info="true"
+					             :full="option.full"
+					             :can-move="option.canMove"
+					             :can-move-box="option.canMoveBox"
+					             :fixed-box="option.fixedBox"
+					             :fixed-number="option.fixedNumber"
+					             :fixed="option.fixed"
+					             :original="option.original"
+					             :auto-crop="option.autoCrop"
+					             :auto-crop-width="option.autoCropWidth"
+					             :auto-crop-height="option.autoCropHeight"
+					             :center-box="option.centerBox"
+					             :high="option.high">
+					</vue-cropper>
+				</div>
+				<span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="finish">确 定</el-button>
+            </span>
+			</el-dialog>
+		</div>
+	</body>
+	<!-- import Vue before Element -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<!--import vue-cropper-->
+	<script src="https://qn-qn-kibey-static-cdn.app-echo.com/vue-cropper@0.4.4.js"></script>
+	<script>
+      Vue.use(window['vue-cropper']);
+	</script>
+	<script>
+      new Vue({
+        el: '#app',
+        data: {
+          dialogVisible: false,
+          profileForm: {
+            avatar: '',
+          },
+          option: {
+            img: "",
+            size: 1,
+            full: false,
+            outputType: "png",
+            canMove: true,
+            fixed: true,
+            fixedNumber: [1, 1],
+            fixedBox: false,
+            original: false,
+            canMoveBox: true,
+            autoCrop: true,
+            autoCropWidth: 200,
+            autoCropHeight: 200,
+            centerBox: false,
+            high: true,
+            cropData: {},
+            enlarge: 1,
+            mode: 'contain'
+          }
+        },
+        methods: {
+          finish() {
+            // 输出
+            const self = this;
+            self.$refs.cropper.getCropBlob((data) => {
+              var img = window.URL.createObjectURL(data);
+              self.profileForm.avatar = img;
+              /*要上传的文件*/
+              var target_file = new window.File([data], self.file.name, { type: self.file.type })
+              console.log(target_file);
+              /*腾讯云上传逻辑*/
+              /*         uAxios.get('/api/qcloud/secret').then(res => {
+						 let result = res.data.data;
+						 self.qq_cloud_config = result;
+						 self.cos = new COS({
+						   getAuthorization: function (options, callback) {
+							 callback({
+							   TmpSecretId: result.tmp_secret_id,
+							   TmpSecretKey: result.tmp_secret_key,
+							   XCosSecurityToken: result.xcos_security_token,
+							   ExpiredTime: result.expired_time,
+							 });
+						   }
+						 });
+						 let bucket = result.bucket;
+						 let region = result.region;
+						 let upload_dir = result.dir;
+						 self.cos.putObject({
+						   Bucket: bucket,
+						   Region: region,
+						   Key: result.dir + self.file.name,
+						   Body: target_file
+						 }, function (err, data) {
+						   console.log(err || data);
+						   if (err) {
+							 self.$message.error({
+							   message: err.error
+							 });
+						   } else {
+							 let file_path = 'http://' + bucket + '.cos.' + region + '.myqcloud.com/' + upload_dir + self.file.name;
+							 self.$message.success({
+							   message: '头像上传成功'
+							 });
+							 self.profileForm.avatar = file_path;
+							 self.file = null;
+							 self.option.img = '';
+							 self.dialogVisible = false
+							 self.submitProfileForm('profileForm');
+						   }
+						 })
+					   });*/
+            })
+          },
+          handleUpload(param) {
+            this.file = param.file;
+            if (!this.file) return;
+            let data = window.URL.createObjectURL(new Blob([this.file]))
+            this.option.img = data;
+          }
+        }
+      })
+	</script>
+</html>
