@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- import CSS -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<link rel="stylesheet" href="../lib/quill-editor/quill.core.css"/>
+		<link rel="stylesheet" href="../lib/quill-editor/quill.snow.css"/>
+		<link rel="stylesheet" href="../lib/quill-editor/quill.bubble.css"/>
+		<style>
+			.page-editor .ql-container {
+				min-height: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<el-form :model="pageForm" ref="pageForm" label-width="80px" style="width:600px">
+				<el-form-item label="页面详情" prop="intro">
+					<div v-loading="imageLoading" element-loading-text="请稍等，图片上传中">
+						<quill-editor v-model="pageForm.intro" class="page-editor" ref="myQuillEditor"
+						              :config="editorOption" @change="editorChange">
+						</quill-editor>
+						<input style="display: none" id="imgInput" type="file" name="avator"
+						       multiple accept="image/jpg,image/jpeg,image/png,image/gif"
+						       @change="handleUpload">
+					</div>
+				</el-form-item>
+			</el-form>
+		</div>
+	</body>
+	<!-- import Vue before Element -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="../lib/cos-js-sdk-v5.min.js"></script>
+	<script src="../lib/quill-editor/quill.min.js"></script>
+	<script src="../lib/quill-editor/vue-quill-editor.js"></script>
+	<script>
+      Vue.use(window.VueQuillEditor);
+      new Vue({
+        el: '#app',
+        data: {
+          pageForm: {
+            intro: '',
+            page: '',
+            language: ''
+          },
+          editorOption: {},
+          imageLoading: false,
+          addImgRange: '',
+          qq_cloud_config: {}
+        },
+        methods: {
+          handleUpload(e) {
+            var self = this;
+            var files = e.target.files;
+            if (files.length == 0) return;
+            var pic_list = [];
+            Object.keys(files).forEach(key => {
+              const isLt500K = files[key].size / 1024 < 500;
+              if (!isLt500K) {
+                this.$message.warning('上传图片大小不能超过 500KB!');
+                return;
+              } else {
+                pic_list.push(files[key])
+              }
+            });
+            if (pic_list.length > 0) {
+              var is_uploaded = 0;
+              self.imageLoading = true;
+    /*          pic_list.forEach(file => {
+                var url = 'http://cloth-1257022476.cos.ap-guangzhou.myqcloud.com/public/201905/07/WechatIMG2.jpeg';
+                self.addImgRange = self.$refs.myQuillEditor.quill.getSelection()
+                self.$refs.myQuillEditor.quill.insertEmbed(self.addImgRange != null ? self.addImgRange.index : 0, 'image', url, Quill.sources.USER);
+                is_uploaded++;
+                if (is_uploaded == pic_list.length) {
+                  self.imageLoading = false;
+                  document.getElementById('imgInput').value = '';
+                }
+              })*/
+              uAxios.get('/api/qcloud/secret').then(res => {
+                let result = res.data.data;
+                self.qq_cloud_config = result;
+                self.cos = new COS({
+                  getAuthorization: function (options, callback) {
+                    callback({
+                      TmpSecretId: result.tmp_secret_id,
+                      TmpSecretKey: result.tmp_secret_key,
+                      XCosSecurityToken: result.xcos_security_token,
+                      ExpiredTime: result.expired_time,
+                    });
+                  }
+                });
+                let bucket = result.bucket;
+                let region = result.region;
+                let upload_dir = result.dir;
+                pic_list.forEach(file => {
+                  self.cos.putObject({
+                    Bucket: bucket,
+                    Region: region,
+                    Key: result.dir + file.name,
+                    Body: file
+                  }, function (err, data) {
+                    if (err) {
+                      self.$message.error({
+                        message: err.error
+                      });
+                    } else {
+                      var url = 'https://' + bucket + '.cos.' + region + '.myqcloud.com/' + upload_dir + file.name;
+                      self.addImgRange = self.$refs.myQuillEditor.quill.getSelection()
+                      self.$refs.myQuillEditor.quill.insertEmbed(self.addImgRange != null ? self.addImgRange.index : 0, 'image', url, Quill.sources.USER);
+                      is_uploaded++;
+                      if (is_uploaded == pic_list.length) {
+                        self.imageLoading = false;
+                        document.getElementById('imgInput').value = '';
+                      }
+                    }
+                  });
+                })
+              });
+            }
+          },
+          submitForm(formName) {
+            /*const self = this;
+			self.$refs[formName].validate((valid) => {
+				if (valid) {
+					uAxios.post('/api/page', self.pageForm).then(res => {
+						if (res.data.code === 1) {
+							self.$message.success({
+								message: '添加页面成功'
+							});
+							setTimeout(() => {
+								location.assign('/page/' + res.data.data.id + '#sku');
+							}, 1000)
+						} else {
+							self.$message.error({
+								message: res.data.msg
+							});
+						}
+					})
+				}
+			});*/
+          },
+          editorChange({ editor, html, text }) {
+            var self = this
+            self.$emit('editorChange', html)
+          },
+        },
+        mounted() {
+          var self = this;
+          /*处理富文本编辑器图片上传到腾讯云*/
+          var imgHandler = async function (image) {
+            self.addImgRange = self.$refs.myQuillEditor.quill.getSelection()
+            if (image) {
+              var fileInput = document.getElementById('imgInput') //隐藏的file文本ID
+              fileInput.click() //加一个触发事件
+            }
+          }
+          self.$refs.myQuillEditor.quill.getModule("toolbar").addHandler("image", imgHandler)
+        }
+      })
+	</script>
+</html>
