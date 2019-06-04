@@ -69,16 +69,16 @@
             if (pic_list.length > 0) {
               var is_uploaded = 0;
               self.imageLoading = true;
-    /*          pic_list.forEach(file => {
-                var url = 'http://cloth-1257022476.cos.ap-guangzhou.myqcloud.com/public/201905/07/WechatIMG2.jpeg';
-                self.addImgRange = self.$refs.myQuillEditor.quill.getSelection()
-                self.$refs.myQuillEditor.quill.insertEmbed(self.addImgRange != null ? self.addImgRange.index : 0, 'image', url, Quill.sources.USER);
-                is_uploaded++;
-                if (is_uploaded == pic_list.length) {
-                  self.imageLoading = false;
-                  document.getElementById('imgInput').value = '';
-                }
-              })*/
+              /*          pic_list.forEach(file => {
+						  var url = 'http://cloth-1257022476.cos.ap-guangzhou.myqcloud.com/public/201905/07/WechatIMG2.jpeg';
+						  self.addImgRange = self.$refs.myQuillEditor.quill.getSelection()
+						  self.$refs.myQuillEditor.quill.insertEmbed(self.addImgRange != null ? self.addImgRange.index : 0, 'image', url, Quill.sources.USER);
+						  is_uploaded++;
+						  if (is_uploaded == pic_list.length) {
+							self.imageLoading = false;
+							document.getElementById('imgInput').value = '';
+						  }
+						})*/
               uAxios.get('/api/qcloud/secret').then(res => {
                 let result = res.data.data;
                 self.qq_cloud_config = result;
@@ -143,8 +143,7 @@
 			});*/
           },
           editorChange({ editor, html, text }) {
-            var self = this
-            self.$emit('editorChange', html)
+            this.$emit('editorChange', html)
           },
         },
         mounted() {

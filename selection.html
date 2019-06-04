@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>document.selection 的 createRange</title>
+	</head>
+	<body>
+
+		<div id="formula">请选中这里的部分文字。</div>
+		<div><input type="button" value="加粗" onclick="javascript:Bold();"/></div>
+		<script type="text/javascript" language="javascript">
+          function Bold() {
+            var formula = document.getElementById('formula');
+            var formula_text = formula.textContent;
+            var selection = window.getSelection();
+            var key = selection.toString();
+            var start = selection.anchorOffset;
+            var end = selection.focusOffset;
+            var key_start = Math.min(start, end);
+            var key_end = Math.max(start, end);
+            formula.innerText = formula_text.slice(0, key_start) + '{{' + key + '}}' + formula_text.slice(key_end);
+          }
+		</script>
+
+	</body>
+</html>
